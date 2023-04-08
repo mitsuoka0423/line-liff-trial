@@ -37,11 +37,37 @@
         class="home__buttons__button button--secondary">
         LINE Developers Console
       </a>
-      <button id="sendMessage" class="home__buttons__button button--primary">
+      <button class="home__buttons__button button--primary">
         Send Message
       </button>
     </div>
   </div>
+  <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+  <script>
+    liff
+      .init({ liffId: process.env.LINE_LIFF_ID || 'ここにLIFF IDを書く' })
+      .then(() => {
+        console.log('LIFF init success');
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+
+    function sendMessage() {
+      liff.sendMessages([
+        {
+          type: 'text',
+          text: 'Hello, World!'
+        }
+      ])
+        .then(() => {
+          console.log('message sent');
+        })
+        .catch((err) => {
+          console.log('error', err);
+        });
+    };
+  </script>
 </body>
 
 </html>
