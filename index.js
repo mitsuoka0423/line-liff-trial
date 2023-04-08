@@ -1,24 +1,28 @@
 import './index.css';
 import liff from '@line/liff'
 
-document.addEventListener("DOMContentLoaded", function() {
-  liff
-    .init({ liffId: process.env.LIFF_ID })
-    .then(() => {
-        liff.sendMessages([
-            {
-                type: 'text',
-                text: 'Hello, World!',
-            },
-        ])
-            .then(() => {
-                window.alert('Message sent');
-            })
-            .catch((error) => {
-                window.alert(`Error sending message: ${error}`);
+document.addEventListener("DOMContentLoaded", function () {
+    liff
+        .init({ liffId: process.env.LIFF_ID })
+        .then(() => {
+            console.log('LIFF init success');
+
+            document.getElementById('sendMessage').addEventListener('click', function () {
+                liff.sendMessages([
+                    {
+                        type: 'text',
+                        text: 'Hello, World!'
+                    }
+                ])
+                    .then(() => {
+                        console.log('message sent');
+                    })
+                    .catch((err) => {
+                        console.log('error', err);
+                    });
             });
-    })
-    .catch((error) => {
-        console.log(error)
-    })
+        })
+        .catch((error) => {
+            console.log(error)
+        })
 });
